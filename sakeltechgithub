@@ -1,0 +1,19 @@
+import { test, expect } from '@playwright/test';
+
+test.describe('HRM Application Login Tests', () => {
+  test('should login successfully with valid credentials', async ({ page }) => {
+    // Navigate to the login page
+    await page.goto('https://opensource-demo.orangehrmlive.com');
+
+    // Enter valid username and password
+    await page.fill('input[name="username"]', 'Admin');
+    await page.fill('input[name="password"]', 'admin123');
+
+    // Click the "Login" button
+    await page.click('button[type="submit"]');
+
+    // Verify successful login by checking the presence of a user-specific element
+    const welcomeMessage = page.locator('h6.text-success');
+    await expect(welcomeMessage).toBeVisible();
+  });
+});
